@@ -25,18 +25,18 @@ app.get("/api/hello", function (req, res) {
 });
 
 // API date endpoint... 
-app.get("/api/:dateEntry?", function (req, res) {
+app.get("/api/:date?", function (req, res) {
   
   let date;
-  if(req.params.dateEntry !== undefined){
-    if(isNaN(req.params.dateEntry)) date = new Date(req.params.dateEntry);
-    else  date = new Date(req.params.dateEntry*1000);
+  if(req.params.date !== undefined){
+    if(isNaN(req.params.date)) date = new Date(req.params.date);
+    else date = new Date(req.params.date * 1);
   }
   else
     date = new Date();
 
   if(date instanceof Date && !isNaN(date.valueOf())){
-    res.json({unix: Math.floor(date.getTime() / 1000), utc: date.toUTCString()});
+    res.json({unix: date.getTime(), utc: date.toUTCString()});
   }
   
   res.json({error: 'Invalid Date'});
